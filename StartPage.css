@@ -1,12 +1,21 @@
 body{
-    background-color: #e6e1d1;
+    background-image: linear-gradient(rgba(230, 225, 209, 0.75), rgba(230, 225, 209, 0.75)), url("startPageBG.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     font-family: Arial, sans-serif;
 }
+
+/* NAVBAR */
 
 .nav-box{
     background-color: #723531;
     padding: 13px;
     box-shadow: 0px 5px 15px rgba(114, 53, 49, 0.3);
+}
+
+.nav-container{
+    width: 85%;
 }
 
 .nav-logo{
@@ -38,29 +47,36 @@ body{
     color: #c1b3a2;
 }
 
+/* MAIN LANDING PAGE */
+
+.start-container{
+    width: 85%;
+}
+
 .main-box{
-    background-color: #f8f4ea;
+    background-color: rgba(248, 244, 234, 0.92);
     border: 8px solid #c1b3a2;
     border-radius: 35px;
-    min-height: 600px;
+    min-height: 720px;
     box-shadow: 0px 10px 25px rgba(114, 53, 49, 0.25);
+    padding: 70px !important;
 }
 
 .main-logo{
-    width: 650px;
+    width: 750px;
     max-width: 100%;
 }
 
 .tagline{
     color: #a8604a;
-    font-size: 22px;
+    font-size: 25px;
     font-weight: 500;
 }
 
 .description{
     color: #723531;
-    font-size: 16px;
-    width: 60%;
+    font-size: 18px;
+    width: 65%;
     margin: auto;
 }
 
@@ -68,7 +84,7 @@ body{
     background-color: #723531;
     color: #e6e1d1;
     border-radius: 30px;
-    padding: 12px 35px;
+    padding: 13px 40px;
     text-decoration: none;
     font-weight: bold;
 }
@@ -82,7 +98,7 @@ body{
     background-color: #a8604a;
     color: #e6e1d1;
     border-radius: 30px;
-    padding: 12px 35px;
+    padding: 13px 40px;
     text-decoration: none;
     font-weight: bold;
 }
@@ -106,8 +122,8 @@ body{
     background-color: #c1b3a2;
     color: #723531;
     border-radius: 20px;
-    padding: 25px;
-    min-height: 150px;
+    padding: 35px;
+    min-height: 170px;
 }
 
 .info-box h5{
@@ -118,9 +134,54 @@ body{
     background-color: #9f825b;
     color: #e6e1d1;
     border-radius: 25px;
-    padding: 30px;
+    padding: 40px;
 }
 
 .bottom-box h4{
     font-weight: bold;
+}
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 768px){
+    .nav-container{
+        width: 95%;
+    }
+
+    .start-container{
+        width: 95%;
+    }
+
+    .main-box{
+        padding: 35px !important;
+        min-height: auto;
+    }
+
+    .main-logo{
+        width: 100%;
+    }
+
+    .description{
+        width: 100%;
+        font-size: 15px;
+    }
+
+    .tagline{
+        font-size: 19px;
+    }
+
+    .nav-link-text{
+        margin-left: 10px;
+        font-size: 14px;
+    }
+
+    .login-btn,
+    .signup-btn{
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+
+    .info-box{
+        margin-bottom: 20px;
+    }
 }

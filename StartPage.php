@@ -11,7 +11,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg nav-box">
-    <div class="container">
+    <div class="container-fluid nav-container">
         <a class="navbar-brand d-flex align-items-center" href="StartPage.php">
             <img src="BorrowMateLogo.png" class="nav-logo">
             <span class="logo-text">BorrowMate</span>
@@ -25,7 +25,7 @@
     </div>
 </nav>
 
-<div class="container mt-5 mb-5">
+<div class="container-fluid start-container mt-5 mb-5">
     <div class="main-box text-center p-5">
 
         <div class="row">
