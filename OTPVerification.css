@@ -1,0 +1,119 @@
+body{
+    background-image: linear-gradient(rgba(230, 225, 209, 0.82), rgba(230, 225, 209, 0.82)), url("borrowmate-bg.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+}
+
+.otp-container{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.otp-box{
+    width: 600px;
+    background-color: rgba(248, 244, 234, 0.96);
+    border: 8px solid #c1b3a2;
+    border-radius: 35px;
+    padding: 65px;
+    box-shadow: 0px 15px 35px rgba(114, 53, 49, 0.25);
+}
+
+.logo-area{
+    color: #723531;
+}
+
+.otp-logo{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.logo-area h2{
+    color: #723531;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.otp-box h1{
+    color: #723531;
+    font-weight: bold;
+    font-size: 42px;
+}
+
+.otp-text{
+    color: #a8604a;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.otp-small-text{
+    color: #9f825b;
+    font-size: 15px;
+}
+
+.otp-input{
+    border: none;
+    border-left: 5px solid #a8604a;
+    border-right: 5px solid #a8604a;
+    border-radius: 0;
+    background-color: #eee8dc;
+    padding: 18px;
+    color: #723531;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.otp-input:focus{
+    box-shadow: none;
+    border-left: 5px solid #723531;
+    border-right: 5px solid #723531;
+    background-color: #e6e1d1;
+}
+
+.verify-btn{
+    background-color: #723531;
+    color: #e6e1d1;
+    border: none;
+    border-radius: 25px;
+    padding: 17px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.verify-btn:hover{
+    background-color: #a8604a;
+    color: #e6e1d1;
+}
+
+.back-link{
+    color: #9f825b;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.back-link:hover{
+    color: #723531;
+}
+
+@media screen and (max-width: 768px){
+    .otp-box{
+        width: 95%;
+        padding: 40px;
+    }
+
+    .otp-box h1{
+        font-size: 32px;
+    }
+
+    .otp-input{
+        font-size: 17px;
+        padding: 15px;
+    }
+}
