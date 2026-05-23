@@ -1,0 +1,126 @@
+body{
+    background-color: #e6e1d1;
+    font-family: Arial, sans-serif;
+}
+
+.nav-box{
+    background-color: #723531;
+    padding: 13px;
+    box-shadow: 0px 5px 15px rgba(114, 53, 49, 0.3);
+}
+
+.nav-logo{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.logo-text{
+    color: #e6e1d1;
+    font-weight: bold;
+    font-size: 25px;
+    letter-spacing: 1px;
+    margin-left: 10px;
+}
+
+.logo-text:hover{
+    color: #c1b3a2;
+}
+
+.nav-link-text{
+    color: #e6e1d1;
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 500;
+}
+
+.nav-link-text:hover{
+    color: #c1b3a2;
+}
+
+.main-box{
+    background-color: #f8f4ea;
+    border: 8px solid #c1b3a2;
+    border-radius: 35px;
+    min-height: 600px;
+    box-shadow: 0px 10px 25px rgba(114, 53, 49, 0.25);
+}
+
+.main-logo{
+    width: 650px;
+    max-width: 100%;
+}
+
+.tagline{
+    color: #a8604a;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.description{
+    color: #723531;
+    font-size: 16px;
+    width: 60%;
+    margin: auto;
+}
+
+.login-btn{
+    background-color: #723531;
+    color: #e6e1d1;
+    border-radius: 30px;
+    padding: 12px 35px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-btn:hover{
+    background-color: #a8604a;
+    color: #e6e1d1;
+}
+
+.signup-btn{
+    background-color: #a8604a;
+    color: #e6e1d1;
+    border-radius: 30px;
+    padding: 12px 35px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-btn:hover{
+    background-color: #723531;
+    color: #e6e1d1;
+}
+
+.explore-link{
+    color: #723531;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.explore-link:hover{
+    color: #a8604a;
+}
+
+.info-box{
+    background-color: #c1b3a2;
+    color: #723531;
+    border-radius: 20px;
+    padding: 25px;
+    min-height: 150px;
+}
+
+.info-box h5{
+    font-weight: bold;
+}
+
+.bottom-box{
+    background-color: #9f825b;
+    color: #e6e1d1;
+    border-radius: 25px;
+    padding: 30px;
+}
+
+.bottom-box h4{
+    font-weight: bold;
+}
