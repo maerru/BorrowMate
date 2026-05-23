@@ -176,6 +176,13 @@ if (isset($_POST['btnsignup'])) {
 
                 if ($memberResult == true) {
 
+                    $logSql = "
+                        INSERT INTO tbl_logs(user_id, log_msg, log_date)
+                        VALUES ('$userId', 'Registered account and pending OTP verification', NOW())
+                    ";
+
+                    $conn->query($logSql);
+
                     send_verification($fullName, $email, $otp);
 
                     echo "

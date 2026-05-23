@@ -72,6 +72,9 @@ if (isset($_POST['btnverify'])) {
 
     if ($result->num_rows == 1) {
 
+        $otpField = $result->fetch_assoc();
+        $verifiedUserId = $otpField['user_id'];
+
         $updateSql = "
             UPDATE tbl_user
             SET user_otp = NULL, user_status = 'Active'
@@ -81,6 +84,13 @@ if (isset($_POST['btnverify'])) {
         $updateResult = $conn->query($updateSql);
 
         if ($updateResult == true) {
+
+            $logSql = "
+                INSERT INTO tbl_logs(user_id, log_msg, log_date)
+                VALUES ('$verifiedUserId', 'Verified account using OTP', NOW())
+            ";
+
+            $conn->query($logSql);
 
             echo "
             <script>
