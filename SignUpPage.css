@@ -1,0 +1,236 @@
+body{
+    background-image: linear-gradient(rgba(230, 225, 209, 0.82), rgba(230, 225, 209, 0.82)), url("borrowmate-bg.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+}
+
+.signup-container{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup-box{
+    width: 1350px;
+    min-height: 730px;
+    background-color: #f8f4ea;
+    box-shadow: 0px 15px 35px rgba(114, 53, 49, 0.25);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.left-box{
+    background: linear-gradient(135deg, #723531, #a8604a, #9f825b);
+    color: #e6e1d1;
+    position: relative;
+    padding: 65px;
+}
+
+.left-box::before{
+    content: "";
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    background-color: rgba(230, 225, 209, 0.12);
+    border-radius: 50%;
+    top: -90px;
+    left: -80px;
+}
+
+.left-box::after{
+    content: "";
+    position: absolute;
+    width: 370px;
+    height: 240px;
+    background-color: rgba(230, 225, 209, 0.10);
+    border-radius: 50%;
+    bottom: -80px;
+    right: -100px;
+}
+
+.logo-area{
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+}
+
+.side-logo{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.side-logo-text{
+    font-weight: bold;
+    margin-left: 12px;
+    letter-spacing: 1px;
+    font-size: 20px;
+}
+
+.welcome-area{
+    position: relative;
+    z-index: 1;
+    margin-top: 190px;
+}
+
+.small-text{
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.welcome-area h1{
+    font-size: 60px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.line{
+    width: 100px;
+    height: 3px;
+    background-color: #e6e1d1;
+    margin: 25px auto;
+}
+
+.side-description{
+    width: 85%;
+    margin: auto;
+    font-size: 17px;
+}
+
+.right-box{
+    background-color: #f8f4ea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 70px;
+}
+
+.form-box{
+    width: 100%;
+    max-width: 650px;
+}
+
+.form-box h3{
+    color: #723531;
+    font-weight: bold;
+    text-align: center;
+    font-size: 36px;
+}
+
+.form-description{
+    color: #9f825b;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.input-box{
+    border: none;
+    border-left: 5px solid #a8604a;
+    border-radius: 0;
+    background-color: #eee8dc;
+    padding: 18px;
+    color: #723531;
+    font-size: 16px;
+}
+
+.input-box:focus{
+    box-shadow: none;
+    border-left: 5px solid #723531;
+    background-color: #e6e1d1;
+}
+
+.signup-btn{
+    background-color: #723531;
+    color: #e6e1d1;
+    border: none;
+    border-radius: 25px;
+    padding: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: 17px;
+}
+
+.signup-btn:hover{
+    background-color: #a8604a;
+    color: #e6e1d1;
+}
+
+.small-label{
+    color: #9f825b;
+    font-size: 15px;
+}
+
+.login-link{
+    color: #a8604a;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.login-link:hover{
+    color: #723531;
+}
+
+.back-link{
+    color: #9f825b;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.back-link:hover{
+    color: #723531;
+}
+
+@media screen and (max-width: 768px){
+    .signup-box{
+        width: 95%;
+        min-height: auto;
+    }
+
+    .left-box{
+        min-height: 320px;
+        padding: 40px;
+    }
+
+    .welcome-area{
+        margin-top: 70px;
+    }
+
+    .welcome-area h1{
+        font-size: 38px;
+    }
+
+    .small-text{
+        font-size: 16px;
+    }
+
+    .side-description{
+        font-size: 14px;
+        width: 100%;
+    }
+
+    .right-box{
+        padding: 35px;
+    }
+
+    .form-box h3{
+        font-size: 28px;
+    }
+
+    .input-box{
+        padding: 15px;
+        font-size: 15px;
+    }
+
+    .signup-btn{
+        padding: 15px;
+        font-size: 15px;
+    }
+}
