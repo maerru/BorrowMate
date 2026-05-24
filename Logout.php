@@ -17,7 +17,7 @@ session_destroy();
 
 echo "
 <script>
-    window.location.href = 'LoginPage.php';
+    window.location.href = 'HomePage.php';
 </script>
 ";
 
