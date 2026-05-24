@@ -89,38 +89,40 @@ body{
 /* HERO */
 
 .hero-section{
-    padding: 70px 0;
+    padding: 50px 0 45px 0;
 }
 
 .hero-box{
+    width: 70%;
+    margin: auto;
     background-color: rgba(248, 244, 234, 0.96);
     border: 6px solid #c1b3a2;
     border-radius: 35px;
-    padding: 60px;
+    padding: 45px;
     box-shadow: 0px 15px 35px rgba(114, 53, 49, 0.25);
 }
 
 .hero-logo{
-    width: 520px;
+    width: 430px;
     max-width: 100%;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .hero-box h1{
     color: #723531;
-    font-size: 42px;
+    font-size: 34px;
     font-weight: bold;
 }
 
 .hero-text{
     color: #9f825b;
-    font-size: 18px;
+    font-size: 16px;
     width: 75%;
-    margin: 25px auto;
+    margin: 20px auto;
 }
 
 .hero-buttons{
-    margin-top: 30px;
+    margin-top: 25px;
 }
 
 .main-btn{
@@ -159,7 +161,7 @@ body{
 /* CONTENT */
 
 .content-section{
-    padding: 70px 0;
+    padding: 50px 0;
 }
 
 .light-section{
@@ -184,7 +186,7 @@ body{
     border: 5px solid #c1b3a2;
     border-radius: 25px;
     padding: 35px;
-    min-height: 260px;
+    min-height: 230px;
     box-shadow: 0px 10px 25px rgba(114, 53, 49, 0.18);
 }
 
@@ -329,7 +331,12 @@ body{
     }
 
     .hero-box{
+        width: 100%;
         padding: 35px;
+    }
+
+    .hero-logo{
+        width: 100%;
     }
 
     .hero-box h1{
