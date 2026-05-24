@@ -3,7 +3,7 @@ html{
 }
 
 body{
-    background-image: linear-gradient(rgba(230, 225, 209, 0.82), rgba(230, 225, 209, 0.82)), url("images/borrowmate-bg.png");
+    background-image: linear-gradient(rgba(230, 225, 209, 0.82), rgba(230, 225, 209, 0.82)), url("../images/borrowmate-bg.png");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -13,48 +13,58 @@ body{
 /* NAVBAR */
 
 .admin-navbar{
-    background-color: #723531;
-    padding: 13px;
-    box-shadow: 0px 5px 15px rgba(114, 53, 49, 0.3);
+    background: linear-gradient(90deg, #723531, #7f3a35, #723531);
+    padding: 12px 0;
+    box-shadow: 0px 8px 25px rgba(114, 53, 49, 0.35);
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 100;
 }
 
 .nav-container{
-    width: 95%;
+    width: 92%;
+}
+
+.navbar-brand{
+    padding: 0;
 }
 
 .nav-logo{
-    width: 45px;
-    height: 45px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
+    background-color: #e6e1d1;
+    padding: 3px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.18);
 }
 
 .brand-text{
     color: #e6e1d1;
     font-weight: bold;
     font-size: 25px;
-    letter-spacing: 1px;
-    margin-left: 10px;
+    letter-spacing: 0.5px;
+    margin-left: 12px;
 }
 
 .user-box{
     color: #e6e1d1;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
 }
 
 .user-role{
     background-color: #a8604a;
+    color: #e6e1d1;
     padding: 7px 18px;
     border-radius: 20px;
     font-weight: bold;
     font-size: 13px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.15);
 }
 
 .user-name{
+    color: #e6e1d1;
     font-weight: bold;
 }
 
@@ -242,6 +252,7 @@ body{
     border: none;
     padding: 13px;
     font-weight: bold;
+    border-radius: 20px;
 }
 
 .search-btn:hover{
@@ -255,14 +266,28 @@ body{
 }
 
 .borrowmate-table th{
-    background-color: #723531;
-    color: #e6e1d1;
+    background-color: #723531 !important;
+    color: #e6e1d1 !important;
     padding: 15px;
 }
 
 .borrowmate-table td{
     padding: 13px;
     vertical-align: middle;
+}
+
+.table-action-btn{
+    background-color: #723531;
+    color: #e6e1d1;
+    border: none;
+    border-radius: 15px;
+    padding: 8px 18px;
+    font-weight: bold;
+}
+
+.table-action-btn:hover{
+    background-color: #a8604a;
+    color: #e6e1d1;
 }
 
 /* MODAL */
@@ -307,6 +332,19 @@ body{
 /* RESPONSIVE */
 
 @media screen and (max-width: 768px){
+    .nav-container{
+        width: 95%;
+    }
+
+    .brand-text{
+        font-size: 21px;
+    }
+
+    .nav-logo{
+        width: 42px;
+        height: 42px;
+    }
+
     .main-container{
         width: 95%;
     }

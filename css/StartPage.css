@@ -1,3 +1,7 @@
+html{
+    scroll-behavior: smooth;
+}
+
 body{
     background-image: linear-gradient(rgba(230, 225, 209, 0.75), rgba(230, 225, 209, 0.75)), url("../images/borrowmate-bg.png");
     background-size: cover;
@@ -8,43 +12,62 @@ body{
 
 /* NAVBAR */
 
+.start-navbar,
 .nav-box{
-    background-color: #723531;
-    padding: 13px;
-    box-shadow: 0px 5px 15px rgba(114, 53, 49, 0.3);
+    background: linear-gradient(90deg, #723531, #7f3a35, #723531);
+    padding: 12px 0;
+    box-shadow: 0px 8px 25px rgba(114, 53, 49, 0.35);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .nav-container{
-    width: 85%;
+    width: 92%;
+}
+
+.navbar-brand{
+    padding: 0;
 }
 
 .nav-logo{
-    width: 45px;
-    height: 45px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
+    background-color: #e6e1d1;
+    padding: 3px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.18);
 }
 
-.logo-text{
+.logo-text,
+.brand-text{
     color: #e6e1d1;
     font-weight: bold;
     font-size: 25px;
-    letter-spacing: 1px;
-    margin-left: 10px;
+    letter-spacing: 0.5px;
+    margin-left: 12px;
 }
 
-.logo-text:hover{
+.logo-text:hover,
+.brand-text:hover{
     color: #c1b3a2;
 }
 
-.nav-link-text{
-    color: #e6e1d1;
+.nav-link-text,
+.nav-link{
+    color: #e6e1d1 !important;
     text-decoration: none;
-    margin-left: 25px;
-    font-weight: 500;
+    margin-left: 8px;
+    font-weight: bold;
+    padding: 9px 18px !important;
+    border-radius: 20px;
+    transition: 0.2s;
 }
 
-.nav-link-text:hover{
-    color: #c1b3a2;
+.nav-link-text:hover,
+.nav-link:hover{
+    background-color: rgba(230, 225, 209, 0.18);
+    color: #ffffff !important;
 }
 
 /* MAIN LANDING PAGE */
@@ -170,9 +193,21 @@ body{
         font-size: 19px;
     }
 
-    .nav-link-text{
-        margin-left: 10px;
-        font-size: 14px;
+    .logo-text,
+    .brand-text{
+        font-size: 21px;
+    }
+
+    .nav-logo{
+        width: 42px;
+        height: 42px;
+    }
+
+    .nav-link-text,
+    .nav-link{
+        margin-left: 0;
+        margin-top: 8px;
+        display: inline-block;
     }
 
     .login-btn,
