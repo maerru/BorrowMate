@@ -31,27 +31,6 @@ BorrowMate was built using the following technologies:
 | **Composer** | Used to install and manage PHPMailer dependencies. |
 | **XAMPP** | Used as the local development environment for Apache and MySQL. |
 
-### Main Tools Used
-
-```txt
-Frontend:
-HTML, CSS, Bootstrap, JavaScript
-
-Backend:
-PHP
-
-Database:
-MySQL
-
-Email Verification:
-PHPMailer
-
-Development Environment:
-XAMPP
-
-Dependency Manager:
-Composer
-
 ## User Roles
 
 ### Admin
