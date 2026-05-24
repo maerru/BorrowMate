@@ -16,20 +16,13 @@ The system keeps important records such as users, members, loan types, loan appl
 
 ## Tech Stack
 
-BorrowMate was built using the following technologies:
-
-| Technology | Purpose |
-|---|---|
-| **PHP** | Used for server-side scripting, form processing, login, signup, OTP verification, dashboards, and database operations. |
-| **MySQL** | Used as the database for storing users, members, loan types, loans, payments, and activity logs. |
-| **HTML** | Used to structure the website pages and forms. |
-| **CSS** | Used for custom styling and the BorrowMate rustic color theme. |
-| **Bootstrap** | Used for responsive layout, grid system, forms, tables, navbar, and modals. |
-| **JavaScript** | Used for page redirects and interactive actions. |
-| **SweetAlert2** | Used for alert messages such as success, error, login failed, and verification messages. |
-| **PHPMailer** | Used for sending OTP verification emails. |
-| **Composer** | Used to install and manage PHPMailer dependencies. |
-| **XAMPP** | Used as the local development environment for Apache and MySQL. |
+- **Frontend:** HTML, CSS, Bootstrap, JavaScript
+- **Backend:** PHP
+- **Database:** MySQL
+- **Email Verification:** PHPMailer
+- **Alerts:** SweetAlert2
+- **Development Environment:** XAMPP
+- **Dependency Manager:** Composer
 
 ## User Roles
 
