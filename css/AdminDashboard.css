@@ -3,7 +3,7 @@ html{
 }
 
 body{
-    background-image: linear-gradient(rgba(230, 225, 209, 0.82), rgba(230, 225, 209, 0.82)), url("borrowmate-bg.png");
+    background-image: linear-gradient(rgba(230, 225, 209, 0.82), rgba(230, 225, 209, 0.82)), url("images/borrowmate-bg.png");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -12,7 +12,7 @@ body{
 
 /* NAVBAR */
 
-.employee-navbar{
+.admin-navbar{
     background-color: #723531;
     padding: 13px;
     box-shadow: 0px 5px 15px rgba(114, 53, 49, 0.3);
@@ -69,7 +69,7 @@ body{
     background-color: rgba(248, 244, 234, 0.96);
     border: 5px solid #c1b3a2;
     border-radius: 25px;
-    min-height: 720px;
+    min-height: 820px;
     padding: 25px;
     box-shadow: 0px 10px 25px rgba(114, 53, 49, 0.20);
     position: sticky;
@@ -263,20 +263,6 @@ body{
 .borrowmate-table td{
     padding: 13px;
     vertical-align: middle;
-}
-
-.table-action-btn{
-    background-color: #723531;
-    color: #e6e1d1;
-    border: none;
-    border-radius: 15px;
-    padding: 8px 18px;
-    font-weight: bold;
-}
-
-.table-action-btn:hover{
-    background-color: #a8604a;
-    color: #e6e1d1;
 }
 
 /* MODAL */

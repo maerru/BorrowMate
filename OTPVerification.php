@@ -8,9 +8,9 @@ session_start();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BorrowMate OTP Verification</title>
-    <link rel="icon" type="image/png" href="BorrowMateLogo.png">
+    <link rel="icon" type="image/png" href="images/BorrowMateLogo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="OTPVerification.css">
+    <link rel="stylesheet" href="css/OTPVerification.css">
 </head>
 <body>
 
@@ -18,7 +18,7 @@ session_start();
     <div class="otp-box text-center">
 
         <div class="logo-area mb-4">
-            <img src="BorrowMateLogo.png" class="otp-logo">
+            <img src="images/BorrowMateLogo.png" class="otp-logo">
             <h2>BorrowMate</h2>
         </div>
 
@@ -56,7 +56,7 @@ session_start();
 
 <?php
 
-require_once "db_Conn.php";
+require_once "includes/db_Conn.php";
 
 if (isset($_POST['btnverify'])) {
 

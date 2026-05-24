@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require_once "db_Conn.php";
+require_once "includes/db_Conn.php";
 
 if (isset($_SESSION['user_id'])) {
 

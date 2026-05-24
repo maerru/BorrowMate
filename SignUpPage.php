@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BorrowMate Sign Up</title>
-    <link rel="icon" type="image/png" href="BorrowMateLogo.png">
+    <link rel="icon" type="image/png" href="images/BorrowMateLogo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="SignUpPage.css">
+    <link rel="stylesheet" href="css/SignUpPage.css">
 </head>
 <body>
 
@@ -15,7 +15,7 @@
 
         <div class="col-md-5 left-box">
             <div class="logo-area">
-                <img src="BorrowMateLogo.png" class="side-logo">
+                <img src="images/BorrowMateLogo.png" class="side-logo">
                 <span class="side-logo-text">BorrowMate</span>
             </div>
 
@@ -101,8 +101,8 @@
 
 <?php
 
-require_once "db_Conn.php";
-require_once "verifyotpemail.php";
+require_once "includes/db_Conn.php";
+require_once "includes/verifyotpemail.php";
 
 if (isset($_POST['btnsignup'])) {
 

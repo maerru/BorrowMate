@@ -1,5 +1,5 @@
 body{
-    background-image: linear-gradient(rgba(230, 225, 209, 0.82), rgba(230, 225, 209, 0.82)), url("borrowmate-bg.png");
+    background-image: linear-gradient(rgba(230, 225, 209, 0.82), rgba(230, 225, 209, 0.82)), url("../images/borrowmate-bg.png");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

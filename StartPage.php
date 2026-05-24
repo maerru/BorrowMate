@@ -4,16 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BorrowMate</title>
-    <link rel="icon" type="image/png" href="BorrowMateLogo.png">
+    <link rel="icon" type="image/png" href="images/BorrowMateLogo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="StartPage.css">
+    <link rel="stylesheet" href="css/StartPage.css">
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg nav-box">
     <div class="container-fluid nav-container">
         <a class="navbar-brand d-flex align-items-center" href="StartPage.php">
-            <img src="BorrowMateLogo.png" class="nav-logo">
+            <img src="images/BorrowMateLogo.png" class="nav-logo">
             <span class="logo-text">BorrowMate</span>
         </a>
 
@@ -30,7 +30,7 @@
 
         <div class="row">
             <div class="col">
-                <img src="BorrowMateFullLogoTransparent.png" class="main-logo">
+                <img src="images/BorrowMateFullLogoTransparent.png" class="main-logo">
 
                 <p class="tagline mt-4">
                     Your loan companion, every step of the way.

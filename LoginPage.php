@@ -8,9 +8,9 @@ session_start();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BorrowMate Login</title>
-    <link rel="icon" type="image/png" href="BorrowMateLogo.png">
+    <link rel="icon" type="image/png" href="images/BorrowMateLogo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="LoginPage.css">
+    <link rel="stylesheet" href="css/LoginPage.css">
 </head>
 <body>
 
@@ -19,7 +19,7 @@ session_start();
 
         <div class="col-md-6 left-box">
             <div class="logo-area">
-                <img src="BorrowMateLogo.png" class="side-logo">
+                <img src="images/BorrowMateLogo.png" class="side-logo">
                 <span class="side-logo-text">BorrowMate</span>
             </div>
 
@@ -81,7 +81,7 @@ session_start();
 
 <?php
 
-require_once "db_Conn.php";
+require_once "includes/db_Conn.php";
 
 if (isset($_POST['btnlogin'])) {
 

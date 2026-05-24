@@ -8,16 +8,16 @@ session_start();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BorrowMate Admin Dashboard</title>
-    <link rel="icon" type="image/png" href="BorrowMateLogo.png">
+    <link rel="icon" type="image/png" href="images/BorrowMateLogo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="AdminDashboard.css">
+    <link rel="stylesheet" href="css/AdminDashboard.css">
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg admin-navbar">
     <div class="container-fluid nav-container">
         <a class="navbar-brand d-flex align-items-center" href="#dashboard">
-            <img src="BorrowMateLogo.png" class="nav-logo">
+            <img src="images/BorrowMateLogo.png" class="nav-logo">
             <span class="brand-text">BorrowMate</span>
         </a>
 
@@ -108,7 +108,7 @@ session_start();
 
                         <?php
 
-                        require_once "db_Conn.php";
+                        require_once "includes/db_Conn.php";
 
                         if (isset($_POST['btnSearchUsers'])) {
 
@@ -643,7 +643,7 @@ session_start();
 
                     <?php
 
-                    require_once "db_Conn.php";
+                    require_once "includes/db_Conn.php";
 
                     if (isset($_POST['btnSearchLogs'])) {
 
@@ -1052,7 +1052,7 @@ session_start();
 
 <?php
 
-require_once "db_Conn.php";
+require_once "includes/db_Conn.php";
 
 if (isset($_POST['btnAddUser'])) {
 
