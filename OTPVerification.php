@@ -10,7 +10,7 @@ session_start();
     <title>BorrowMate OTP Verification</title>
     <link rel="icon" type="image/png" href="images/BorrowMateLogo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/OTPVerification.css">
+    <link rel="stylesheet" href="css/OTPVerification.css?v=2">
 </head>
 <body>
 
@@ -42,6 +42,22 @@ session_start();
 
         </form>
 
+        <hr class="mt-4 mb-4">
+
+        <p class="otp-small-text">
+            Did not receive the OTP? Enter your email below.
+        </p>
+
+        <form action="OTPVerification.php" method="post">
+
+            <div class="mb-3">
+                <input type="email" name="resendEmail" class="form-control otp-input text-center" placeholder="Enter your email" required>
+            </div>
+
+            <input type="submit" name="btnresend" value="RESEND OTP" class="resend-btn form-control">
+
+        </form>
+
         <div class="mt-4">
             <a href="LoginPage.php" class="back-link">Back to Login</a>
         </div>
@@ -57,6 +73,7 @@ session_start();
 <?php
 
 require_once "includes/db_Conn.php";
+require_once "includes/verifyotpemail.php";
 
 if (isset($_POST['btnverify'])) {
 
@@ -128,6 +145,87 @@ if (isset($_POST['btnverify'])) {
                 icon: 'error',
                 title: 'Invalid OTP',
                 text: 'Please enter the correct OTP code.',
+                confirmButtonColor: '#723531'
+            });
+        </script>
+        ";
+
+    }
+}
+
+if (isset($_POST['btnresend'])) {
+
+    $resendEmail = $_POST['resendEmail'];
+
+    $checkEmailSql = "
+        SELECT * FROM tbl_user
+        WHERE user_email = '".$resendEmail."'
+        AND user_status = 'Pending'
+    ";
+
+    $checkEmailResult = $conn->query($checkEmailSql);
+
+    if ($checkEmailResult->num_rows == 1) {
+
+        $emailField = $checkEmailResult->fetch_assoc();
+
+        $userId = $emailField['user_id'];
+        $userName = $emailField['user_name'];
+        $newOtp = rand(100000, 999999);
+
+        $updateOtpSql = "
+            UPDATE tbl_user
+            SET user_otp = '".$newOtp."'
+            WHERE user_id = '".$userId."'
+        ";
+
+        $updateOtpResult = $conn->query($updateOtpSql);
+
+        if ($updateOtpResult == true) {
+
+            send_verification($userName, $resendEmail, $newOtp);
+
+            $logSql = "
+                INSERT INTO tbl_logs(user_id, log_msg, log_date)
+                VALUES ('$userId', 'Resent OTP verification code', NOW())
+            ";
+
+            $conn->query($logSql);
+
+            echo "
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'OTP Sent',
+                    text: 'A new OTP was sent to your email.',
+                    confirmButtonColor: '#723531'
+                });
+            </script>
+            ";
+
+        } else {
+
+            echo "
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Resend Failed',
+                    text: 'Something went wrong while generating a new OTP.',
+                    confirmButtonColor: '#723531'
+                });
+            </script>
+            ";
+
+        }
+
+    } else {
+
+        echo "
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Email Not Found',
+                text: 'No pending account was found with that email.',
                 confirmButtonColor: '#723531'
             });
         </script>

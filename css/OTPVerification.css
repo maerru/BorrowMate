@@ -116,4 +116,18 @@ body{
         font-size: 17px;
         padding: 15px;
     }
+
+    .resend-btn{
+    background-color: transparent;
+    color: #723531;
+    border: 2px solid #723531;
+    border-radius: 25px;
+    padding: 13px;
+    font-weight: bold;
+    }
+
+    .resend-btn:hover{
+        background-color: #723531;
+        color: #e6e1d1;
+    }
 }
