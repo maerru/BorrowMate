@@ -1,5 +1,19 @@
 <?php
 session_start();
+
+$fullNameValue = "";
+$contactInfoValue = "";
+$emailValue = "";
+$addressValue = "";
+$usernameValue = "";
+
+if (isset($_POST['btnsignup'])) {
+    $fullNameValue = $_POST['fullName'];
+    $contactInfoValue = $_POST['contactInfo'];
+    $emailValue = $_POST['email'];
+    $addressValue = $_POST['address'];
+    $usernameValue = $_POST['username'];
+}
 ?>
 
 <!doctype html>
@@ -10,7 +24,7 @@ session_start();
     <title>BorrowMate Sign Up</title>
     <link rel="icon" type="image/png" href="images/BorrowMateLogo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/SignUpPage.css">
+    <link rel="stylesheet" href="css/SignUpPage.css?v=2">
 </head>
 <body>
 
@@ -44,29 +58,29 @@ session_start();
 
                     <div class="row mb-3">
                         <div class="col">
-                            <input type="text" name="fullName" class="form-control input-box" placeholder="Full Name" required>
+                            <input type="text" name="fullName" class="form-control input-box" placeholder="Full Name" value="<?php echo htmlspecialchars($fullNameValue); ?>" required>
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col">
-                            <input type="text" name="contactInfo" class="form-control input-box" placeholder="Contact Information" required>
+                            <input type="text" name="contactInfo" class="form-control input-box" placeholder="Contact Information" value="<?php echo htmlspecialchars($contactInfoValue); ?>" required>
                         </div>
 
                         <div class="col">
-                            <input type="email" name="email" class="form-control input-box" placeholder="Email Address" required>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col">
-                            <input type="text" name="address" class="form-control input-box" placeholder="Address" required>
+                            <input type="email" name="email" class="form-control input-box" placeholder="Email Address" value="<?php echo htmlspecialchars($emailValue); ?>" required>
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col">
-                            <input type="text" name="username" class="form-control input-box" placeholder="Username" required>
+                            <input type="text" name="address" class="form-control input-box" placeholder="Address" value="<?php echo htmlspecialchars($addressValue); ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <input type="text" name="username" class="form-control input-box" placeholder="Username" value="<?php echo htmlspecialchars($usernameValue); ?>" required>
                         </div>
                     </div>
 
@@ -120,7 +134,7 @@ if (isset($_POST['btnsignup'])) {
 
     $role = "Member";
     $status = "Pending";
-    $otp = rand(000000, 999999);
+    $otp = rand(100000, 999999);
 
     if ($password != $confirmPassword) {
 
@@ -172,7 +186,7 @@ if (isset($_POST['btnsignup'])) {
                 $userId = $conn->insert_id;
 
                 $_SESSION['otp_user_id'] = $userId;
-                
+
                 $insertMemberSql = "
                     INSERT INTO tbl_member(user_id, member_name, contact_information, member_address)
                     VALUES ('$userId', '$fullName', '$contactInfo', '$address')

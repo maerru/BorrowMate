@@ -51,11 +51,6 @@ session_start();
                     </div>
 
                     <div class="row mb-4">
-                        <div class="col">
-                            <input type="checkbox" name="rememberme">
-                            <label class="small-label">Keep me signed in</label>
-                        </div>
-
                         <div class="col text-end">
                             <a href="SignUpPage.php" class="member-link">Not a member?</a>
                         </div>
