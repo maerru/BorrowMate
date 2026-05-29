@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -167,6 +171,8 @@ if (isset($_POST['btnsignup'])) {
 
                 $userId = $conn->insert_id;
 
+                $_SESSION['otp_user_id'] = $userId;
+                
                 $insertMemberSql = "
                     INSERT INTO tbl_member(user_id, member_name, contact_information, member_address)
                     VALUES ('$userId', '$fullName', '$contactInfo', '$address')

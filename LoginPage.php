@@ -151,6 +151,10 @@ if (isset($_POST['btnlogin'])) {
 
         if ($checkResult->num_rows == 1) {
 
+            $pendingField = $checkResult->fetch_assoc();
+
+            $_SESSION['otp_user_id'] = $pendingField['user_id'];
+
             echo "
             <script>
                 Swal.fire({

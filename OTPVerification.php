@@ -45,17 +45,11 @@ session_start();
         <hr class="mt-4 mb-4">
 
         <p class="otp-small-text">
-            Did not receive the OTP? Enter your email below.
+            Did not receive the OTP?
         </p>
 
         <form action="OTPVerification.php" method="post">
-
-            <div class="mb-3">
-                <input type="email" name="resendEmail" class="form-control otp-input text-center" placeholder="Enter your email" required>
-            </div>
-
             <input type="submit" name="btnresend" value="RESEND OTP" class="resend-btn form-control">
-
         </form>
 
         <div class="mt-4">
@@ -95,7 +89,7 @@ if (isset($_POST['btnverify'])) {
         $updateSql = "
             UPDATE tbl_user
             SET user_otp = NULL, user_status = 'Active'
-            WHERE user_otp = '".$otp."'
+            WHERE user_id = '".$verifiedUserId."'
         ";
 
         $updateResult = $conn->query($updateSql);
@@ -108,6 +102,8 @@ if (isset($_POST['btnverify'])) {
             ";
 
             $conn->query($logSql);
+
+            unset($_SESSION['otp_user_id']);
 
             echo "
             <script>
@@ -155,53 +151,71 @@ if (isset($_POST['btnverify'])) {
 
 if (isset($_POST['btnresend'])) {
 
-    $resendEmail = $_POST['resendEmail'];
+    if (isset($_SESSION['otp_user_id'])) {
 
-    $checkEmailSql = "
-        SELECT * FROM tbl_user
-        WHERE user_email = '".$resendEmail."'
-        AND user_status = 'Pending'
-    ";
+        $otpUserId = $_SESSION['otp_user_id'];
 
-    $checkEmailResult = $conn->query($checkEmailSql);
-
-    if ($checkEmailResult->num_rows == 1) {
-
-        $emailField = $checkEmailResult->fetch_assoc();
-
-        $userId = $emailField['user_id'];
-        $userName = $emailField['user_name'];
-        $newOtp = rand(100000, 999999);
-
-        $updateOtpSql = "
-            UPDATE tbl_user
-            SET user_otp = '".$newOtp."'
-            WHERE user_id = '".$userId."'
+        $checkUserSql = "
+            SELECT * FROM tbl_user
+            WHERE user_id = '".$otpUserId."'
+            AND user_status = 'Pending'
         ";
 
-        $updateOtpResult = $conn->query($updateOtpSql);
+        $checkUserResult = $conn->query($checkUserSql);
 
-        if ($updateOtpResult == true) {
+        if ($checkUserResult->num_rows == 1) {
 
-            send_verification($userName, $resendEmail, $newOtp);
+            $userField = $checkUserResult->fetch_assoc();
 
-            $logSql = "
-                INSERT INTO tbl_logs(user_id, log_msg, log_date)
-                VALUES ('$userId', 'Resent OTP verification code', NOW())
+            $userId = $userField['user_id'];
+            $userName = $userField['user_name'];
+            $userEmail = $userField['user_email'];
+            $newOtp = rand(100000, 999999);
+
+            $updateOtpSql = "
+                UPDATE tbl_user
+                SET user_otp = '".$newOtp."'
+                WHERE user_id = '".$userId."'
             ";
 
-            $conn->query($logSql);
+            $updateOtpResult = $conn->query($updateOtpSql);
 
-            echo "
-            <script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'OTP Sent',
-                    text: 'A new OTP was sent to your email.',
-                    confirmButtonColor: '#723531'
-                });
-            </script>
-            ";
+            if ($updateOtpResult == true) {
+
+                send_verification($userName, $userEmail, $newOtp);
+
+                $logSql = "
+                    INSERT INTO tbl_logs(user_id, log_msg, log_date)
+                    VALUES ('$userId', 'Resent OTP verification code', NOW())
+                ";
+
+                $conn->query($logSql);
+
+                echo "
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'OTP Sent',
+                        text: 'A new OTP was sent to your registered email.',
+                        confirmButtonColor: '#723531'
+                    });
+                </script>
+                ";
+
+            } else {
+
+                echo "
+                <script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Resend Failed',
+                        text: 'Something went wrong while generating a new OTP.',
+                        confirmButtonColor: '#723531'
+                    });
+                </script>
+                ";
+
+            }
 
         } else {
 
@@ -209,9 +223,11 @@ if (isset($_POST['btnresend'])) {
             <script>
                 Swal.fire({
                     icon: 'error',
-                    title: 'Resend Failed',
-                    text: 'Something went wrong while generating a new OTP.',
+                    title: 'Account Not Found',
+                    text: 'No pending account was found for OTP resend.',
                     confirmButtonColor: '#723531'
+                }).then(() => {
+                    window.location.href = 'LoginPage.php';
                 });
             </script>
             ";
@@ -223,10 +239,12 @@ if (isset($_POST['btnresend'])) {
         echo "
         <script>
             Swal.fire({
-                icon: 'error',
-                title: 'Email Not Found',
-                text: 'No pending account was found with that email.',
+                icon: 'warning',
+                title: 'Session Expired',
+                text: 'Please log in again or register again to resend your OTP.',
                 confirmButtonColor: '#723531'
+            }).then(() => {
+                window.location.href = 'LoginPage.php';
             });
         </script>
         ";
