@@ -10,7 +10,7 @@ session_start();
     <title>BorrowMate Admin Dashboard</title>
     <link rel="icon" type="image/png" href="images/BorrowMateLogo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/AdminDashboard.css">
+    <link rel="stylesheet" href="css/AdminDashboard.css?v=2">
 </head>
 <body>
 
@@ -53,7 +53,7 @@ session_start();
             <a href="#logs" class="sidebar-link">Logs</a>
 
             <div class="logout-area">
-                <a href="LoginPage.php" class="logout-link">Log Out</a>
+                <a href="Logout.php" class="logout-link">Log Out</a>
             </div>
         </div>
 
@@ -66,7 +66,7 @@ session_start();
                 <div class="sample-card mt-4">
                     <h3>Admin Access</h3>
                     <p>
-                        This page is for the Admin role. Admin can manage users, members, loan types, loans, and payments.
+                        This page is for the Admin role. Admin can manage users, members, loan types, loans, payments, and logs.
                     </p>
                     <span class="sample-badge">ADMIN DASHBOARD</span>
                 </div>
@@ -299,6 +299,7 @@ session_start();
                         <tr>
                             <th>Loan Type ID</th>
                             <th>Loan Type Name</th>
+                            <th>Interest Rate</th>
                             <th>Description</th>
                         </tr>
 
@@ -315,6 +316,7 @@ session_start();
                                     SELECT * FROM tbl_loanType
                                     WHERE loan_type_id LIKE '%".$searchInput."%'
                                     OR loan_type_name LIKE '%".$searchInput."%'
+                                    OR loan_type_rate LIKE '%".$searchInput."%'
                                     OR loan_type_description LIKE '%".$searchInput."%'
                                 ";
 
@@ -339,6 +341,7 @@ session_start();
                                 echo "<tr>";
                                 echo "<td>".$loanTypeField['loan_type_id']."</td>";
                                 echo "<td>".$loanTypeField['loan_type_name']."</td>";
+                                echo "<td>".$loanTypeField['loan_type_rate']."%</td>";
                                 echo "<td>".$loanTypeField['loan_type_description']."</td>";
                                 echo "</tr>";
 
@@ -347,7 +350,7 @@ session_start();
                         } else {
 
                             echo "<tr>";
-                            echo "<td colspan='3' class='text-center'>No loan types found</td>";
+                            echo "<td colspan='4' class='text-center'>No loan types found</td>";
                             echo "</tr>";
 
                         }
@@ -407,6 +410,7 @@ session_start();
                             <th>Date Disbursed</th>
                             <th>Outstanding Balance</th>
                             <th>Status</th>
+                            <th>Action</th>
                         </tr>
 
                         <?php
@@ -486,6 +490,22 @@ session_start();
                                 echo "<td>".$loanField['date_disbursed']."</td>";
                                 echo "<td>".number_format($loanField['outstanding_balance'], 2)."</td>";
                                 echo "<td>".$loanField['loan_status']."</td>";
+                                echo "<td>
+                                        <button type='button' class='table-action-btn'
+                                            data-bs-toggle='modal'
+                                            data-bs-target='#editLoanModal'
+                                            data-loanid='".$loanField['loan_id']."'
+                                            data-borrowerid='".$loanField['borrower_id']."'
+                                            data-loantypeid='".$loanField['loan_type_id']."'
+                                            data-loanamount='".$loanField['loan_amount']."'
+                                            data-loanterm='".$loanField['loan_term']."'
+                                            data-dateapplied='".$loanField['date_applied']."'
+                                            data-dateapproved='".$loanField['date_approved']."'
+                                            data-datedisbursed='".$loanField['date_disbursed']."'
+                                            data-loanstatus='".$loanField['loan_status']."'>
+                                            Edit
+                                        </button>
+                                      </td>";
                                 echo "</tr>";
 
                             }
@@ -493,7 +513,7 @@ session_start();
                         } else {
 
                             echo "<tr>";
-                            echo "<td colspan='14' class='text-center'>No loans found</td>";
+                            echo "<td colspan='15' class='text-center'>No loans found</td>";
                             echo "</tr>";
 
                         }
@@ -612,56 +632,65 @@ session_start();
                 </div>
             </section>
 
-        <section class="section-box" id="logs">
-            <div class="section-title-row">
-                <div>
-                    <h1>Logs</h1>
-                    <p>This section contains the system activity logs.</p>
-                </div>
-            </div>
-
-            <form action="AdminDashboard.php#logs" method="post">
-                <div class="row mt-4 mb-4">
-                    <div class="col-md-10">
-                        <input type="search" name="searchLogs" class="form-control search-box" placeholder="Search logs">
-                    </div>
-
-                    <div class="col-md-2">
-                        <input type="submit" name="btnSearchLogs" value="Search" class="search-btn form-control">
+            <section class="section-box" id="logs">
+                <div class="section-title-row">
+                    <div>
+                        <h1>Logs</h1>
+                        <p>This section contains the system activity logs.</p>
                     </div>
                 </div>
-            </form>
 
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover borrowmate-table">
-                    <tr>
-                        <th>Log ID</th>
-                        <th>User</th>
-                        <th>Action</th>
-                        <th>Date and Time</th>
-                    </tr>
+                <form action="AdminDashboard.php#logs" method="post">
+                    <div class="row mt-4 mb-4">
+                        <div class="col-md-10">
+                            <input type="search" name="searchLogs" class="form-control search-box" placeholder="Search logs">
+                        </div>
 
-                    <?php
+                        <div class="col-md-2">
+                            <input type="submit" name="btnSearchLogs" value="Search" class="search-btn form-control">
+                        </div>
+                    </div>
+                </form>
 
-                    require_once "includes/db_Conn.php";
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover borrowmate-table">
+                        <tr>
+                            <th>Log ID</th>
+                            <th>User</th>
+                            <th>Action</th>
+                            <th>Date and Time</th>
+                        </tr>
 
-                    if (isset($_POST['btnSearchLogs'])) {
+                        <?php
 
-                        $searchLogs = $_POST['searchLogs'];
-                        $searchInput = trim($searchLogs);
+                        if (isset($_POST['btnSearchLogs'])) {
 
-                        if ($searchInput != NULL && $searchInput != "") {
+                            $searchLogs = $_POST['searchLogs'];
+                            $searchInput = trim($searchLogs);
 
-                            $displayLogSql = "
-                                SELECT tbl_logs.*, tbl_user.user_name
-                                FROM tbl_logs
-                                INNER JOIN tbl_user ON tbl_logs.user_id = tbl_user.user_id
-                                WHERE tbl_logs.log_id LIKE '%".$searchInput."%'
-                                OR tbl_user.user_name LIKE '%".$searchInput."%'
-                                OR tbl_logs.log_msg LIKE '%".$searchInput."%'
-                                OR tbl_logs.log_date LIKE '%".$searchInput."%'
-                                ORDER BY tbl_logs.log_date DESC
-                            ";
+                            if ($searchInput != NULL && $searchInput != "") {
+
+                                $displayLogSql = "
+                                    SELECT tbl_logs.*, tbl_user.user_name
+                                    FROM tbl_logs
+                                    INNER JOIN tbl_user ON tbl_logs.user_id = tbl_user.user_id
+                                    WHERE tbl_logs.log_id LIKE '%".$searchInput."%'
+                                    OR tbl_user.user_name LIKE '%".$searchInput."%'
+                                    OR tbl_logs.log_msg LIKE '%".$searchInput."%'
+                                    OR tbl_logs.log_date LIKE '%".$searchInput."%'
+                                    ORDER BY tbl_logs.log_date DESC
+                                ";
+
+                            } else {
+
+                                $displayLogSql = "
+                                    SELECT tbl_logs.*, tbl_user.user_name
+                                    FROM tbl_logs
+                                    INNER JOIN tbl_user ON tbl_logs.user_id = tbl_user.user_id
+                                    ORDER BY tbl_logs.log_date DESC
+                                ";
+
+                            }
 
                         } else {
 
@@ -674,44 +703,33 @@ session_start();
 
                         }
 
-                    } else {
+                        $logResult = $conn->query($displayLogSql);
 
-                        $displayLogSql = "
-                            SELECT tbl_logs.*, tbl_user.user_name
-                            FROM tbl_logs
-                            INNER JOIN tbl_user ON tbl_logs.user_id = tbl_user.user_id
-                            ORDER BY tbl_logs.log_date DESC
-                        ";
+                        if ($logResult->num_rows > 0) {
 
-                    }
+                            foreach ($logResult as $logField) {
 
-                    $logResult = $conn->query($displayLogSql);
+                                echo "<tr>";
+                                echo "<td>".$logField['log_id']."</td>";
+                                echo "<td>".$logField['user_name']."</td>";
+                                echo "<td>".$logField['log_msg']."</td>";
+                                echo "<td>".$logField['log_date']."</td>";
+                                echo "</tr>";
 
-                    if ($logResult->num_rows > 0) {
+                            }
 
-                        foreach ($logResult as $logField) {
+                        } else {
 
                             echo "<tr>";
-                            echo "<td>".$logField['log_id']."</td>";
-                            echo "<td>".$logField['user_name']."</td>";
-                            echo "<td>".$logField['log_msg']."</td>";
-                            echo "<td>".$logField['log_date']."</td>";
+                            echo "<td colspan='4' class='text-center'>No logs found</td>";
                             echo "</tr>";
 
                         }
 
-                    } else {
-
-                        echo "<tr>";
-                        echo "<td colspan='4' class='text-center'>No logs found</td>";
-                        echo "</tr>";
-
-                    }
-
-                    ?>
-                </table>
-            </div>
-        </section>
+                        ?>
+                    </table>
+                </div>
+            </section>
 
         </div>
     </div>
@@ -850,6 +868,11 @@ session_start();
                     </div>
 
                     <div class="mb-3">
+                        <label>Interest Rate</label>
+                        <input type="number" step="0.0001" name="loanTypeRate" class="form-control modal-input" placeholder="Example: 3 for 3%" required>
+                    </div>
+
+                    <div class="mb-3">
                         <label>Description</label>
                         <textarea name="loanTypeDescription" class="form-control modal-input" rows="4" required></textarea>
                     </div>
@@ -916,7 +939,7 @@ session_start();
 
                                     foreach ($loanTypeSelectResult as $loanTypeSelectField) {
 
-                                        echo "<option value='".$loanTypeSelectField['loan_type_id']."'>".$loanTypeSelectField['loan_type_name']."</option>";
+                                        echo "<option value='".$loanTypeSelectField['loan_type_id']."'>".$loanTypeSelectField['loan_type_name']." - ".$loanTypeSelectField['loan_type_rate']."%</option>";
 
                                     }
 
@@ -931,11 +954,6 @@ session_start();
                         <div class="col">
                             <label>Loan Amount</label>
                             <input type="number" step="0.01" name="loanAmount" class="form-control modal-input" required>
-                        </div>
-
-                        <div class="col">
-                            <label>Interest Rate</label>
-                            <input type="number" step="0.0001" name="interestRate" class="form-control modal-input" placeholder="Example: 3 for 3%" required>
                         </div>
 
                         <div class="col">
@@ -974,6 +992,119 @@ session_start();
 
                 <div class="modal-footer">
                     <input type="submit" name="btnAddLoan" value="Save Loan" class="modal-save-btn">
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editLoanModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content add-modal">
+
+            <div class="modal-header modal-title-box">
+                <h5 class="modal-title">Edit Loan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="AdminDashboard.php#loans" method="post">
+                <div class="modal-body">
+
+                    <input type="hidden" name="editLoanId" id="editLoanId">
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label>Borrower</label>
+                            <select name="editBorrowerId" id="editBorrowerId" class="form-control modal-input" required>
+                                <option value="" selected disabled>-- Select Borrower --</option>
+
+                                <?php
+
+                                $editBorrowerSql = "SELECT * FROM tbl_member ORDER BY member_name ASC";
+                                $editBorrowerResult = $conn->query($editBorrowerSql);
+
+                                if ($editBorrowerResult->num_rows > 0) {
+
+                                    foreach ($editBorrowerResult as $editBorrowerField) {
+
+                                        echo "<option value='".$editBorrowerField['member_id']."'>".$editBorrowerField['member_name']."</option>";
+
+                                    }
+
+                                }
+
+                                ?>
+                            </select>
+                        </div>
+
+                        <div class="col">
+                            <label>Loan Type</label>
+                            <select name="editLoanTypeId" id="editLoanTypeId" class="form-control modal-input" required>
+                                <option value="" selected disabled>-- Select Loan Type --</option>
+
+                                <?php
+
+                                $editLoanTypeSql = "SELECT * FROM tbl_loanType ORDER BY loan_type_name ASC";
+                                $editLoanTypeResult = $conn->query($editLoanTypeSql);
+
+                                if ($editLoanTypeResult->num_rows > 0) {
+
+                                    foreach ($editLoanTypeResult as $editLoanTypeField) {
+
+                                        echo "<option value='".$editLoanTypeField['loan_type_id']."'>".$editLoanTypeField['loan_type_name']." - ".$editLoanTypeField['loan_type_rate']."%</option>";
+
+                                    }
+
+                                }
+
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label>Loan Amount</label>
+                            <input type="number" step="0.01" name="editLoanAmount" id="editLoanAmount" class="form-control modal-input" required>
+                        </div>
+
+                        <div class="col">
+                            <label>Loan Term</label>
+                            <input type="number" name="editLoanTerm" id="editLoanTerm" class="form-control modal-input" placeholder="Months" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label>Date Applied</label>
+                            <input type="datetime-local" name="editDateApplied" id="editDateApplied" class="form-control modal-input" required>
+                        </div>
+
+                        <div class="col">
+                            <label>Date Approved</label>
+                            <input type="datetime-local" name="editDateApproved" id="editDateApproved" class="form-control modal-input">
+                        </div>
+
+                        <div class="col">
+                            <label>Date Disbursed</label>
+                            <input type="datetime-local" name="editDateDisbursed" id="editDateDisbursed" class="form-control modal-input">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Loan Status</label>
+                        <select name="editLoanStatus" id="editLoanStatus" class="form-control modal-input" required>
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Paid">Paid</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <input type="submit" name="btnEditLoan" value="Update Loan" class="modal-save-btn">
                 </div>
             </form>
 
@@ -1046,6 +1177,41 @@ session_start();
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+const editLoanModal = document.getElementById('editLoanModal');
+
+editLoanModal.addEventListener('show.bs.modal', function(event) {
+
+    const button = event.relatedTarget;
+
+    document.getElementById('editLoanId').value = button.getAttribute('data-loanid');
+    document.getElementById('editBorrowerId').value = button.getAttribute('data-borrowerid');
+    document.getElementById('editLoanTypeId').value = button.getAttribute('data-loantypeid');
+    document.getElementById('editLoanAmount').value = button.getAttribute('data-loanamount');
+    document.getElementById('editLoanTerm').value = button.getAttribute('data-loanterm');
+    document.getElementById('editLoanStatus').value = button.getAttribute('data-loanstatus');
+
+    document.getElementById('editDateApplied').value = button.getAttribute('data-dateapplied').replace(" ", "T");
+
+    let dateApproved = button.getAttribute('data-dateapproved');
+    let dateDisbursed = button.getAttribute('data-datedisbursed');
+
+    if (dateApproved != "") {
+        document.getElementById('editDateApproved').value = dateApproved.replace(" ", "T");
+    } else {
+        document.getElementById('editDateApproved').value = "";
+    }
+
+    if (dateDisbursed != "") {
+        document.getElementById('editDateDisbursed').value = dateDisbursed.replace(" ", "T");
+    } else {
+        document.getElementById('editDateDisbursed').value = "";
+    }
+
+});
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
@@ -1092,6 +1258,15 @@ if (isset($_POST['btnAddUser'])) {
         $insertUserResult = $conn->query($insertUserSql);
 
         if ($insertUserResult == true) {
+
+            if (isset($_SESSION['user_id'])) {
+                $logSql = "
+                    INSERT INTO tbl_logs(user_id, log_msg, log_date)
+                    VALUES ('".$_SESSION['user_id']."', 'Added new user: ".$userName."', NOW())
+                ";
+
+                $conn->query($logSql);
+            }
 
             echo "
             <script>
@@ -1141,6 +1316,15 @@ if (isset($_POST['btnAddMember'])) {
 
     if ($insertMemberResult == true) {
 
+        if (isset($_SESSION['user_id'])) {
+            $logSql = "
+                INSERT INTO tbl_logs(user_id, log_msg, log_date)
+                VALUES ('".$_SESSION['user_id']."', 'Added new member: ".$memberName."', NOW())
+            ";
+
+            $conn->query($logSql);
+        }
+
         echo "
         <script>
             Swal.fire({
@@ -1174,16 +1358,26 @@ if (isset($_POST['btnAddMember'])) {
 if (isset($_POST['btnAddLoanType'])) {
 
     $loanTypeName = $_POST['loanTypeName'];
+    $loanTypeRate = $_POST['loanTypeRate'];
     $loanTypeDescription = $_POST['loanTypeDescription'];
 
     $insertLoanTypeSql = "
-        INSERT INTO tbl_loanType(loan_type_name, loan_type_description)
-        VALUES ('$loanTypeName', '$loanTypeDescription')
+        INSERT INTO tbl_loanType(loan_type_name, loan_type_description, loan_type_rate)
+        VALUES ('$loanTypeName', '$loanTypeDescription', '$loanTypeRate')
     ";
 
     $insertLoanTypeResult = $conn->query($insertLoanTypeSql);
 
     if ($insertLoanTypeResult == true) {
+
+        if (isset($_SESSION['user_id'])) {
+            $logSql = "
+                INSERT INTO tbl_logs(user_id, log_msg, log_date)
+                VALUES ('".$_SESSION['user_id']."', 'Added loan type: ".$loanTypeName."', NOW())
+            ";
+
+            $conn->query($logSql);
+        }
 
         echo "
         <script>
@@ -1220,12 +1414,21 @@ if (isset($_POST['btnAddLoan'])) {
     $borrowerId = $_POST['borrowerId'];
     $loanTypeId = $_POST['loanTypeId'];
     $loanAmount = $_POST['loanAmount'];
-    $interestRate = $_POST['interestRate'];
     $loanTerm = $_POST['loanTerm'];
     $dateApplied = str_replace("T", " ", $_POST['dateApplied']);
     $dateApproved = $_POST['dateApproved'];
     $dateDisbursed = $_POST['dateDisbursed'];
     $loanStatus = $_POST['loanStatus'];
+
+    $getLoanTypeSql = "
+        SELECT * FROM tbl_loanType
+        WHERE loan_type_id = '".$loanTypeId."'
+    ";
+
+    $getLoanTypeResult = $conn->query($getLoanTypeSql);
+    $loanTypeField = $getLoanTypeResult->fetch_assoc();
+
+    $interestRate = $loanTypeField['loan_type_rate'];
 
     $termInYears = $loanTerm / 12;
     $interestAmount = $loanAmount * ($interestRate / 100) * $termInYears;
@@ -1238,7 +1441,11 @@ if (isset($_POST['btnAddLoan'])) {
     }
 
     if ($dateApproved == NULL || $dateApproved == "") {
-        $dateApprovedValue = "NULL";
+        if ($loanStatus == "Approved" || $loanStatus == "Paid") {
+            $dateApprovedValue = "NOW()";
+        } else {
+            $dateApprovedValue = "NULL";
+        }
     } else {
         $dateApprovedValue = "'".str_replace("T", " ", $dateApproved)."'";
     }
@@ -1257,6 +1464,17 @@ if (isset($_POST['btnAddLoan'])) {
     $insertLoanResult = $conn->query($insertLoanSql);
 
     if ($insertLoanResult == true) {
+
+        $loanId = $conn->insert_id;
+
+        if (isset($_SESSION['user_id'])) {
+            $logSql = "
+                INSERT INTO tbl_logs(user_id, log_msg, log_date)
+                VALUES ('".$_SESSION['user_id']."', 'Added loan ID: ".$loanId."', NOW())
+            ";
+
+            $conn->query($logSql);
+        }
 
         echo "
         <script>
@@ -1286,6 +1504,132 @@ if (isset($_POST['btnAddLoan'])) {
 
     }
 
+}
+
+if (isset($_POST['btnEditLoan'])) {
+
+    $editLoanId = $_POST['editLoanId'];
+    $editBorrowerId = $_POST['editBorrowerId'];
+    $editLoanTypeId = $_POST['editLoanTypeId'];
+    $editLoanAmount = $_POST['editLoanAmount'];
+    $editLoanTerm = $_POST['editLoanTerm'];
+    $editDateApplied = str_replace("T", " ", $_POST['editDateApplied']);
+    $editDateApproved = $_POST['editDateApproved'];
+    $editDateDisbursed = $_POST['editDateDisbursed'];
+    $editLoanStatus = $_POST['editLoanStatus'];
+
+    $getLoanTypeSql = "
+        SELECT * FROM tbl_loanType
+        WHERE loan_type_id = '".$editLoanTypeId."'
+    ";
+
+    $getLoanTypeResult = $conn->query($getLoanTypeSql);
+    $loanTypeField = $getLoanTypeResult->fetch_assoc();
+
+    $editInterestRate = $loanTypeField['loan_type_rate'];
+
+    $termInYears = $editLoanTerm / 12;
+    $interestAmount = $editLoanAmount * ($editInterestRate / 100) * $termInYears;
+    $totalAmount = $editLoanAmount + $interestAmount;
+
+    $getPaymentTotalSql = "
+        SELECT SUM(payment_amount) AS total_paid
+        FROM tbl_payment
+        WHERE loan_id = '".$editLoanId."'
+    ";
+
+    $getPaymentTotalResult = $conn->query($getPaymentTotalSql);
+    $paymentTotalField = $getPaymentTotalResult->fetch_assoc();
+
+    if ($paymentTotalField['total_paid'] == NULL) {
+        $totalPaid = 0;
+    } else {
+        $totalPaid = $paymentTotalField['total_paid'];
+    }
+
+    if ($editLoanStatus == "Paid") {
+        $editOutstandingBalance = 0;
+    } else {
+        $editOutstandingBalance = $totalAmount - $totalPaid;
+
+        if ($editOutstandingBalance <= 0) {
+            $editOutstandingBalance = 0;
+            $editLoanStatus = "Paid";
+        }
+    }
+
+    if ($editDateApproved == NULL || $editDateApproved == "") {
+        if ($editLoanStatus == "Approved" || $editLoanStatus == "Paid") {
+            $editDateApprovedValue = "NOW()";
+        } else {
+            $editDateApprovedValue = "NULL";
+        }
+    } else {
+        $editDateApprovedValue = "'".str_replace("T", " ", $editDateApproved)."'";
+    }
+
+    if ($editDateDisbursed == NULL || $editDateDisbursed == "") {
+        $editDateDisbursedValue = "NULL";
+    } else {
+        $editDateDisbursedValue = "'".str_replace("T", " ", $editDateDisbursed)."'";
+    }
+
+    $updateLoanSql = "
+        UPDATE tbl_loan
+        SET borrower_id = '".$editBorrowerId."',
+            loan_type_id = '".$editLoanTypeId."',
+            loan_amount = '".$editLoanAmount."',
+            interest_rate = '".$editInterestRate."',
+            loan_term = '".$editLoanTerm."',
+            date_applied = '".$editDateApplied."',
+            date_approved = $editDateApprovedValue,
+            date_disbursed = $editDateDisbursedValue,
+            outstanding_balance = '".$editOutstandingBalance."',
+            loan_status = '".$editLoanStatus."'
+        WHERE loan_id = '".$editLoanId."'
+    ";
+
+    $updateLoanResult = $conn->query($updateLoanSql);
+
+    if ($updateLoanResult == true) {
+
+        if (isset($_SESSION['user_id'])) {
+
+            $logSql = "
+                INSERT INTO tbl_logs(user_id, log_msg, log_date)
+                VALUES ('".$_SESSION['user_id']."', 'Updated loan ID: ".$editLoanId."', NOW())
+            ";
+
+            $conn->query($logSql);
+        }
+
+        echo "
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Loan Updated',
+                text: 'Loan was updated successfully.',
+                confirmButtonColor: '#723531'
+            }).then(() => {
+                window.location.href = 'AdminDashboard.php#loans';
+            });
+        </script>
+        ";
+
+    } else {
+
+        echo "
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Update Failed',
+                text: '".addslashes($conn->error)."',
+                confirmButtonColor: '#723531'
+            });
+        </script>
+        ";
+
+    }
 }
 
 if (isset($_POST['btnAddPayment'])) {
@@ -1327,6 +1671,36 @@ if (isset($_POST['btnAddPayment'])) {
         ";
 
         $conn->query($updateLoanSql);
+
+        if (isset($_SESSION['user_id'])) {
+
+            $logSql = "
+                INSERT INTO tbl_logs(user_id, log_msg, log_date)
+                VALUES ('".$_SESSION['user_id']."', 'Added payment for loan ID: ".$paymentLoanId."', NOW())
+            ";
+
+            $conn->query($logSql);
+
+            if ($newStatus == "Paid") {
+
+                $paidLogSql = "
+                    INSERT INTO tbl_logs(user_id, log_msg, log_date)
+                    VALUES ('".$_SESSION['user_id']."', 'Marked loan ID ".$paymentLoanId." as Paid', NOW())
+                ";
+
+                $conn->query($paidLogSql);
+
+            } else {
+
+                $balanceLogSql = "
+                    INSERT INTO tbl_logs(user_id, log_msg, log_date)
+                    VALUES ('".$_SESSION['user_id']."', 'Updated outstanding balance for loan ID: ".$paymentLoanId."', NOW())
+                ";
+
+                $conn->query($balanceLogSql);
+
+            }
+        }
 
         echo "
         <script>

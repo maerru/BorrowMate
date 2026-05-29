@@ -91,7 +91,7 @@ session_start();
 
                                     foreach ($loanTypeResult as $loanTypeField) {
 
-                                        echo "<option value='".$loanTypeField['loan_type_id']."'>".$loanTypeField['loan_type_name']."</option>";
+                                        echo "<option value='".$loanTypeField['loan_type_id']."'>".$loanTypeField['loan_type_name']." - ".$loanTypeField['loan_type_rate']."%</option>";
 
                                     }
 
@@ -190,6 +190,7 @@ session_start();
                                             tbl_loan.loan_id LIKE '%".$searchInput."%'
                                             OR tbl_loanType.loan_type_name LIKE '%".$searchInput."%'
                                             OR tbl_loan.loan_amount LIKE '%".$searchInput."%'
+                                            OR tbl_loan.interest_rate LIKE '%".$searchInput."%'
                                             OR tbl_loan.loan_status LIKE '%".$searchInput."%'
                                             OR tbl_loan.date_applied LIKE '%".$searchInput."%'
                                         )
@@ -442,17 +443,7 @@ if (isset($_POST['btnApplyLoan'])) {
         $loanTypeCheckResult = $conn->query($loanTypeCheckSql);
         $loanTypeCheckField = $loanTypeCheckResult->fetch_assoc();
 
-        $loanTypeName = $loanTypeCheckField['loan_type_name'];
-
-        if ($loanTypeName == "Educational Loan") {
-            $interestRate = 3;
-        } else if ($loanTypeName == "Emergency Loan") {
-            $interestRate = 5;
-        } else if ($loanTypeName == "Gadget Loan") {
-            $interestRate = 4;
-        } else {
-            $interestRate = 0;
-        }
+        $interestRate = $loanTypeCheckField['loan_type_rate'];
 
         $termInYears = $loanTerm / 12;
         $interestAmount = $loanAmount * ($interestRate / 100) * $termInYears;
